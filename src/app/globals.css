@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+/* ====== DESIGN TOKENS (rong bodlate shudhu ekhane) ====== */
+@theme static {
+  --color-ink: #0b0f1a;
+  --color-ink-2: #131a2b;
+  --color-cream: #fbf7f2;
+  --color-brand: #ff6b00;
+  --color-brand-2: #ff3d6e;
+  --color-violet: #7c6cff;
+  --shadow-soft: 0 10px 40px -12px rgba(15, 23, 42, 0.12);
+  --shadow-glow: 0 16px 40px -14px rgba(255, 90, 40, 0.55);
+}
+@theme {
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-fade-up: fade-up 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-pulse-ring: pulse-ring 2.4s ease-out infinite;
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+  @keyframes fade-up { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+  @keyframes pulse-ring { 0% { transform: scale(1); opacity: 0.45; } 100% { transform: scale(1.8); opacity: 0; } }
+}
+@theme inline {
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-sora), var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ====== BASE ====== */
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { background: #fff; color: var(--color-ink); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+section[id] { scroll-margin-top: 4.5rem; }
+button:not(:disabled), [role="button"]:not(:disabled), summary { cursor: pointer; }
+::selection { background: rgba(255, 107, 0, 0.22); }
+:focus-visible { outline: 2px solid var(--color-brand); outline-offset: 3px; }
+
+/* ====== REUSABLE UTILITIES ====== */
+@utility grad-text {
+  background-image: linear-gradient(135deg, var(--color-brand), var(--color-brand-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@utility grad-bg {
+  background-image: linear-gradient(135deg, var(--color-brand), var(--color-brand-2));
+}
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.9) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.9) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+@utility btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  border-radius: 0.9rem;
+  padding: var(--btn-py, 0.95rem) var(--btn-px, 1.7rem);
+  font-size: var(--btn-fs, 0.95rem);
+  font-weight: 600;
+  color: #fff;
+  background-image: linear-gradient(135deg, var(--color-brand), var(--color-brand-2));
+  box-shadow: var(--shadow-glow);
+  transition: transform 0.25s ease, filter 0.25s ease;
+  &:hover { transform: translateY(-2px); filter: brightness(1.08); }
+  &:active { transform: translateY(0); }
+  &:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+}
+@utility btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  border-radius: 0.9rem;
+  padding: 0.95rem 1.7rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(8px);
+  transition: background 0.25s ease, transform 0.25s ease;
+  &:hover { background: rgba(255, 255, 255, 0.15); transform: translateY(-2px); }
+}
+
+/* Scroll reveal (JS off thakle layout.jsx er <noscript> e visible kora hoy) */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1); transition-delay: var(--d, 0ms); }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .animate-float, .animate-fade-up, .animate-pulse-ring { animation: none !important; }
+}

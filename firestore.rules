@@ -1,0 +1,13 @@
+// Firebase Console > Firestore Database > Rules e paste kore Publish koro.
+// ADMIN_EMAIL er jaygay apnar admin login email boshao.
+// (Shudhu "request.auth != null" dile jekeu sign-up kore likhte pare, tai email lock dorkar.)
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /projects/{projectId} {
+      allow read: if true;
+      allow write: if request.auth != null
+                   && request.auth.token.email == "ADMIN_EMAIL";
+    }
+  }
+}
