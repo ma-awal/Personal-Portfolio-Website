@@ -50,7 +50,7 @@ export default function Work({ initialProjects = [] }) {
           subtitle={work.subtitle}
         />
 
-        {tabs.length > 2 && (
+        {/* {tabs.length > 2 && (
           <Reveal className="mb-10 flex justify-center">
             <div
               role="tablist"
@@ -78,7 +78,7 @@ export default function Work({ initialProjects = [] }) {
               ))}
             </div>
           </Reveal>
-        )}
+        )} */}
 
         {loading ? (
           <div className="grid place-items-center py-24 text-slate-400">
